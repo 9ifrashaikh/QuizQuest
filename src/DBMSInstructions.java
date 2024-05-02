@@ -3,6 +3,14 @@ import java.awt.*;
 
 public class DBMSInstructions {
     public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                createAndShowGUI();
+            }
+        });
+    }
+
+    private static void createAndShowGUI() {
         // Create and configure the instruction frame for DBMS
         JFrame dbmsFrame = new JFrame("Database Management System Instructions");
         dbmsFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -51,7 +59,7 @@ public class DBMSInstructions {
         // Add the DBMS instruction panel to the frame
         dbmsFrame.add(dbmsPanel);
 
-        // Center the frame on the screen
+        //Center the frame on the screen
         dbmsFrame.setLocationRelativeTo(null);
 
         // Make the frame visible

@@ -3,6 +3,14 @@ import java.awt.*;
 
 public class DSInstructions {
     public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                createAndShowGUI();
+            }
+        });
+    }
+
+    private static void createAndShowGUI() {
         // Create and configure the instruction frame for DS
         JFrame dsFrame = new JFrame("Data Structures Quiz Instructions");
         dsFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -51,7 +59,7 @@ public class DSInstructions {
         // Add the DS instruction panel to the frame
         dsFrame.add(dsPanel);
 
-        // Center the frame on the screen
+        //Center the frame on the screen
         dsFrame.setLocationRelativeTo(null);
 
         // Make the frame visible

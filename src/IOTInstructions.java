@@ -3,6 +3,14 @@ import java.awt.*;
 
 public class IOTInstructions {
     public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                createAndShowGUI();
+            }
+        });
+    }
+
+    private static void createAndShowGUI() {
         // Create and configure the instruction frame for IOT
         JFrame iotFrame = new JFrame("Internet of Things Quiz Instructions");
         iotFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
