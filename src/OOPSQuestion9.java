@@ -24,16 +24,20 @@ public class OOPSQuestion9 {
         frame.setSize(600, 400);
 
         panel = new JPanel();
-        panel.setLayout(new GridLayout(5, 1));
+        panel.setLayout(new BorderLayout());
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         JLabel questionLabel = new JLabel("Question: What is the main objective of OOP?");
-        panel.add(questionLabel);
+        questionLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        panel.add(questionLabel, BorderLayout.NORTH);
 
-        JRadioButton option1 = new JRadioButton("To simplify complex systems by modeling them as objects");
-        JRadioButton option2 = new JRadioButton("To make programming languages more efficient");
-        JRadioButton option3 = new JRadioButton("To increase code complexity");
-        JRadioButton option4 = new JRadioButton("To reduce code reusability");
+        JPanel optionsPanel = new JPanel();
+        optionsPanel.setLayout(new GridLayout(4, 1));
+
+        JRadioButton option1 = new JRadioButton("A. To simplify complex systems by modeling them as objects");
+        JRadioButton option2 = new JRadioButton("B. To make programming languages more efficient");
+        JRadioButton option3 = new JRadioButton("C. To increase code complexity");
+        JRadioButton option4 = new JRadioButton("D. To reduce code reusability");
 
         optionGroup = new ButtonGroup();
         optionGroup.add(option1);
@@ -41,10 +45,12 @@ public class OOPSQuestion9 {
         optionGroup.add(option3);
         optionGroup.add(option4);
 
-        panel.add(option1);
-        panel.add(option2);
-        panel.add(option3);
-        panel.add(option4);
+        optionsPanel.add(option1);
+        optionsPanel.add(option2);
+        optionsPanel.add(option3);
+        optionsPanel.add(option4);
+
+        panel.add(optionsPanel, BorderLayout.CENTER);
 
         JButton finishButton = new JButton("Finish");
         finishButton.addActionListener(new ActionListener() {
@@ -61,7 +67,7 @@ public class OOPSQuestion9 {
             }
         });
 
-        panel.add(finishButton);
+        panel.add(finishButton, BorderLayout.SOUTH);
         frame.add(panel);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
