@@ -15,7 +15,7 @@ public class OOPSInstructions {
         // Create and configure the instruction frame for OOPS
         JFrame oopsFrame = new JFrame("Object-Oriented Programming Instructions");
         oopsFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        oopsFrame.setSize(600, 400);
+        oopsFrame.setSize(600, 500);
 
         // Create a panel for the OOPS instruction page
         JPanel oopsPanel = new JPanel();
@@ -23,7 +23,7 @@ public class OOPSInstructions {
 
         // Create components for the OOPS instruction page
         JLabel titleLabelOOPS = new JLabel("Object-Oriented Programming Quiz Instructions");
-        titleLabelOOPS.setFont(new Font("Arial", Font.BOLD, 24));
+        titleLabelOOPS.setFont(new Font("Arial", Font.BOLD, 28));
         titleLabelOOPS.setHorizontalAlignment(SwingConstants.CENTER);
 
         JLabel rulesLabelOOPS = new JLabel("Rules:");
@@ -31,6 +31,7 @@ public class OOPSInstructions {
         rulesTextAreaOOPS.setText("1. This quiz contains multiple-choice questions (MCQs).\n" +
                 "2. Each question has one correct answer.\n" +
                 "3. Select the correct option and click 'Submit' to proceed to the next question.");
+        rulesTextAreaOOPS.setFont(new Font("Arial", Font.PLAIN, 16));
 
         JLabel marksLabelOOPS = new JLabel("Marks per Question: 5");
         JLabel numQuestionsLabelOOPS = new JLabel("Number of Questions: 10");
@@ -42,6 +43,7 @@ public class OOPSInstructions {
         additionalInfoTextAreaOOPS.setText("1. You will have 10 minutes to complete the quiz.\n" +
                 "2. Ensure that you understand the concepts thoroughly before attempting the quiz.\n" +
                 "3. Good luck!");
+        additionalInfoTextAreaOOPS.setFont(new Font("Arial", Font.PLAIN, 16));
 
         // Create a button for proceeding to the test
         JButton proceedButton = new JButton("Proceed to Test");
@@ -73,10 +75,13 @@ public class OOPSInstructions {
         // Add the OOPS instruction panel to the frame
         oopsFrame.add(oopsPanel);
 
-        // Center the frame on the screen
+        //Center the frame on the screen
         oopsFrame.setLocationRelativeTo(null);
 
         // Make the frame visible
         oopsFrame.setVisible(true);
+
+        // Adjust the size of the frame to fit the content
+        oopsFrame.pack();
     }
 }
