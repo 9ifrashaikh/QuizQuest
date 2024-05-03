@@ -4,7 +4,7 @@ import java.awt.event.*;
 
 public class OOPSQuestion4 {
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(OOPSQuestion4::createAndShowGUI);
+        SwingUtilities.invokeLater(OOPSQuestion3::createAndShowGUI);
     }
 
     private static void createAndShowGUI() {

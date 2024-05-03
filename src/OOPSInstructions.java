@@ -34,7 +34,7 @@ public class OOPSInstructions {
         rulesTextAreaOOPS.setFont(new Font("Arial", Font.PLAIN, 16));
 
         JLabel marksLabelOOPS = new JLabel("Marks per Question: 5");
-        JLabel numQuestionsLabelOOPS = new JLabel("Number of Questions: 10");
+        JLabel numQuestionsLabelOOPS = new JLabel("Number of Questions: 9");
 
         JLabel optionsLabelOOPS = new JLabel("Options per Question: 4");
 

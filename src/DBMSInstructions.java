@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class DBMSInstructions {
     public static void main(String[] args) {
@@ -42,6 +44,16 @@ public class DBMSInstructions {
                 "2. Ensure that you understand the concepts thoroughly before attempting the quiz.\n" +
                 "3. Good luck!");
 
+        // Create a button for proceeding to the test
+        JButton proceedButton = new JButton("Proceed to Test");
+        proceedButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Open the DBMSQuestion1 frame
+                DBMSQuestion1.createAndShowGUI();
+                dbmsFrame.dispose(); // Close the instructions window
+            }
+        });
+
         // Add components to the DBMS instruction panel
         dbmsPanel.add(titleLabelDBMS, BorderLayout.NORTH);
 
@@ -55,6 +67,9 @@ public class DBMSInstructions {
         centerPanelDBMS.add(additionalInfoLabelDBMS);
         centerPanelDBMS.add(additionalInfoTextAreaDBMS);
         dbmsPanel.add(centerPanelDBMS, BorderLayout.CENTER);
+
+        // Add the Proceed to Test button to the DBMS instruction panel
+        dbmsPanel.add(proceedButton, BorderLayout.SOUTH);
 
         // Add the DBMS instruction panel to the frame
         dbmsFrame.add(dbmsPanel);

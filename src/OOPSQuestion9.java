@@ -5,7 +5,7 @@ import java.sql.*;
 import java.util.Date;
 
 public class OOPSQuestion9 {
-    private static final int[] CORRECT_OPTIONS = {0, 2, 3, 2, 2, 3, 0, 0, 0};
+    private static final int[] CORRECT_OPTIONS = {1, 4, 3, 4, 3, 3, 3, 1, 1};
     private static JFrame frame;
     private static JPanel panel;
     private static ButtonGroup optionGroup;
@@ -61,9 +61,14 @@ public class OOPSQuestion9 {
 
                 storeScore("OOPS", score);
 
-                JOptionPane.showMessageDialog(frame, "Your score: " + score + "/9");
-
                 frame.dispose();
+
+                // Open the ScoreOutcomePage
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        new ScoreOutcomePage(score).setVisible(true);
+                    }
+                });
             }
         });
 

@@ -19,7 +19,7 @@ public class OOPSQuestion3 {
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         // Create question label
-        JLabel questionLabel = new JLabel("What is polymorphism in OOP?");
+        JLabel questionLabel = new JLabel("Which of the following statements is TRUE about exception handling in Java within the context of OOP?");
         questionLabel.setFont(new Font("Arial", Font.BOLD, 16));
         panel.add(questionLabel, BorderLayout.NORTH);
 
@@ -28,10 +28,10 @@ public class OOPSQuestion3 {
         optionsPanel.setLayout(new GridLayout(4, 1));
 
         // Create option radio buttons
-        JRadioButton option1 = new JRadioButton("A. The ability to create new classes from existing classes");
-        JRadioButton option2 = new JRadioButton("B. The ability to access methods of one class from another class");
-        JRadioButton option3 = new JRadioButton("C. The ability to override methods of a superclass");
-        JRadioButton option4 = new JRadioButton("D. The ability of a single method to perform different tasks based on the object that invokes it");
+        JRadioButton option1 = new JRadioButton("a) A try block can only catch one specific type of exception.");
+        JRadioButton option2 = new JRadioButton("b) A finally block is mandatory for every try-catch block.");
+        JRadioButton option3 = new JRadioButton("c) Catch blocks are used to define how to handle unexpected events during program execution. (CORRECT)");
+        JRadioButton option4 = new JRadioButton("d) Exception handling improves code readability but doesn't affect program functionality.");
 
         // Group the radio buttons
         ButtonGroup group = new ButtonGroup();
@@ -55,8 +55,8 @@ public class OOPSQuestion3 {
                 JOptionPane.showMessageDialog(frame, "Moving to next question...");
                 // Close the current frame
                 frame.dispose();
-                // Call the method to display Question 4
-                OOPSQuestion4.main(new String[]{});
+                // Call the method to display Question 5
+                OOPSQuestion5.main(new String[]{});
             }
         });
 
