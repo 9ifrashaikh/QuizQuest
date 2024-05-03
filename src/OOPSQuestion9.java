@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
-import java.util.Date;
 import java.util.Enumeration;
 
 public class OOPSQuestion9 {
@@ -10,14 +9,12 @@ public class OOPSQuestion9 {
     private static JFrame frame;
     private static JPanel panel;
     private static ButtonGroup optionGroup;
-
-
-
-
+    private static String username;
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
+                username = JOptionPane.showInputDialog("Enter your username:");
                 createAndShowGUI();
             }
         });
@@ -44,8 +41,7 @@ public class OOPSQuestion9 {
         JRadioButton option3 = new JRadioButton("C. To increase code complexity");
         JRadioButton option4 = new JRadioButton("D. To reduce code reusability");
 
-
-        optionGroup = new ButtonGroup();  // Use optionGroup1 for question 1
+        optionGroup = new ButtonGroup();
         optionGroup.add(option1);
         optionGroup.add(option2);
         optionGroup.add(option3);
@@ -56,51 +52,29 @@ public class OOPSQuestion9 {
         optionsPanel.add(option3);
         optionsPanel.add(option4);
 
-
         panel.add(optionsPanel, BorderLayout.CENTER);
 
         JButton finishButton = new JButton("Finish");
         finishButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Calculate score for each question
-                int selectedOption1 = getSelectedOption(optionGroup);
-                int selectedOption2 = getSelectedOption(optionGroup);
-                int selectedOption3 = getSelectedOption(optionGroup);
-                int selectedOption4 = getSelectedOption(optionGroup);
-                int selectedOption5 = getSelectedOption(optionGroup);
-                int selectedOption6 = getSelectedOption(optionGroup);
-                int selectedOption7 = getSelectedOption(optionGroup);
-                int selectedOption8 = getSelectedOption(optionGroup);
-                int selectedOption9 = getSelectedOption(optionGroup);
-
-
-                // Repeat for other questions...
-
-                int scoreForQuestion1 = calculateScore(selectedOption1, 0);
-                int scoreForQuestion2 = calculateScore(selectedOption2, 1);
-                int scoreForQuestion3 = calculateScore(selectedOption3, 2);
-                int scoreForQuestion4 = calculateScore(selectedOption4, 3);
-                int scoreForQuestion5 = calculateScore(selectedOption5, 4);
-                int scoreForQuestion6 = calculateScore(selectedOption6, 5);
-                int scoreForQuestion7 = calculateScore(selectedOption7, 6);
-                int scoreForQuestion8 = calculateScore(selectedOption8, 7);
-                int scoreForQuestion9 = calculateScore(selectedOption9, 8);
-
-                // Repeat for other questions...
-
-                // Calculate total score
-                int totalScore = scoreForQuestion1 + scoreForQuestion2 +scoreForQuestion3+scoreForQuestion4+scoreForQuestion5+scoreForQuestion6+scoreForQuestion7+scoreForQuestion8+scoreForQuestion9; /* Add scores for other questions */;
-
-                // Store total score or display it as needed
-                storeScore("OOPS", totalScore);
-
+                int totalScore = 0;
+                for (int i = 0; i < CORRECT_OPTIONS.length; i++) {
+                    int selectedOption = getSelectedOption(optionGroup);
+                    totalScore += calculateScore(selectedOption, i);
+                }
+                storeScore("OOPS", totalScore, username);
                 JOptionPane.showMessageDialog(frame, "Your total score: " + totalScore + "/9");
-
-                frame.dispose();
+                JButton showCorrectOptionsButton = new JButton("Show Correct Options");
+                showCorrectOptionsButton.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        displayCorrectOptions();
+                    }
+                });
+                panel.remove(finishButton);
+                panel.add(showCorrectOptionsButton, BorderLayout.SOUTH);
+                frame.revalidate();
             }
         });
-
-
 
         panel.add(finishButton, BorderLayout.SOUTH);
         frame.add(panel);
@@ -121,34 +95,93 @@ public class OOPSQuestion9 {
         return -1; // Return -1 if no option is selected
     }
 
-
-
-
-
     private static int calculateScore(int selectedOption, int questionNumber) {
         int score = 0;
-        System.out.println("Selected option for question " + (questionNumber + 1) + ": " + selectedOption);
-        System.out.println("Correct option for question " + (questionNumber + 1) + ": " + CORRECT_OPTIONS[questionNumber]);
         if (selectedOption == CORRECT_OPTIONS[questionNumber]) {
-            score++;
+            score = 1;
         }
         return score;
     }
 
+    private static void displayCorrectOptions() {
+        StringBuilder correctOptions = new StringBuilder("<html><body>");
+        for (int i = 0; i < CORRECT_OPTIONS.length; i++) {
+            char correctOption = (char) ('A' + CORRECT_OPTIONS[i]);
+            correctOptions.append(i + 1).append(". ");
+            switch (i) {
+                case 0:
+                    correctOptions.append("What is the main objective of OOP? ");
+                    break;
+                case 1:
+                    correctOptions.append("What is inheritance in OOP? ");
+                    break;
+                case 2:
+                    correctOptions.append("What is polymorphism in OOP? ");
+                    break;
+                case 3:
+                    correctOptions.append("What is abstraction in OOP? ");
+                    break;
+                case 4:
+                    correctOptions.append("What is a constructor in Java? ");
+                    break;
+                case 5:
+                    correctOptions.append("What is a static method in Java? ");
+                    break;
+                case 6:
+                    correctOptions.append("What is an interface in Java? ");
+                    break;
+                case 7:
+                    correctOptions.append("What is a package in Java? ");
+                    break;
+                case 8:
+                    correctOptions.append("What is the main objective of OOP? ");
+                    break;
+            }
+            correctOptions.append("<br>&nbsp;&nbsp;&nbsp;Answer: ").append(correctOption).append(". ");
+            switch (i) {
+                case 0:
+                    correctOptions.append("To simplify complex systems by modeling them as objects");
+                    break;
+                case 1:
+                    correctOptions.append("The ability to create new classes from existing classes");
+                    break;
+                case 2:
+                    correctOptions.append("The ability of an object to take on many forms");
+                    break;
+                case 3:
+                    correctOptions.append("The ability to hide certain methods from other classes");
+                    break;
+                case 4:
+                    correctOptions.append("A method that is automatically called when an object is created");
+                    break;
+                case 5:
+                    correctOptions.append("A method that belongs to the class rather than any specific instance");
+                    break;
+                case 6:
+                    correctOptions.append("A collection of abstract methods and constants");
+                    break;
+                case 7:
+                    correctOptions.append("A folder used to organize classes and interfaces");
+                    break;
+                case 8:
+                    correctOptions.append("To simplify complex systems by modeling them as objects");
+                    break;
+            }
+            correctOptions.append("<br><br>");
+        }
+        correctOptions.append("</body></html>");
 
+        JOptionPane.showMessageDialog(frame, correctOptions.toString(), "Correct Options", JOptionPane.INFORMATION_MESSAGE);
+    }
 
-    //int selectedOption = getSelectedOption(); // Get the selected option
-   // int questionNumber = 8; // Assuming question number 9 (indexed from 0)
-    //int score = calculateScore(selectedOption, questionNumber); // Calculate the score
-
-    private static void storeScore(String subject, int score) {
+    private static void storeScore(String subject, int score, String username) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/sys", "root", "ifra@1234");
             String insertQuery = "INSERT INTO scores (user_name, subject, score, test_date) VALUES (?, ?, ?, ?)";
             preparedStatement = connection.prepareStatement(insertQuery);
-            preparedStatement.setString(1, "ifras");
+            preparedStatement.setString(1, username);
             preparedStatement.setString(2, subject);
             preparedStatement.setInt(3, score);
             preparedStatement.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
