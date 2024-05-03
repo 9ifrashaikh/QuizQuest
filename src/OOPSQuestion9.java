@@ -3,12 +3,17 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
 import java.util.Date;
+import java.util.Enumeration;
 
 public class OOPSQuestion9 {
-    private static final int[] CORRECT_OPTIONS = {0, 2, 3, 2, 2, 3, 0, 0, 0};
+    private static final int[] CORRECT_OPTIONS = {0, 2, 3, 0, 0, 3, 0, 0, 0};
     private static JFrame frame;
     private static JPanel panel;
     private static ButtonGroup optionGroup;
+
+
+
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -39,7 +44,8 @@ public class OOPSQuestion9 {
         JRadioButton option3 = new JRadioButton("C. To increase code complexity");
         JRadioButton option4 = new JRadioButton("D. To reduce code reusability");
 
-        optionGroup = new ButtonGroup();
+
+        optionGroup = new ButtonGroup();  // Use optionGroup1 for question 1
         optionGroup.add(option1);
         optionGroup.add(option2);
         optionGroup.add(option3);
@@ -50,22 +56,51 @@ public class OOPSQuestion9 {
         optionsPanel.add(option3);
         optionsPanel.add(option4);
 
+
         panel.add(optionsPanel, BorderLayout.CENTER);
 
         JButton finishButton = new JButton("Finish");
         finishButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int selectedOption = getSelectedOption();
+                // Calculate score for each question
+                int selectedOption1 = getSelectedOption(optionGroup);
+                int selectedOption2 = getSelectedOption(optionGroup);
+                int selectedOption3 = getSelectedOption(optionGroup);
+                int selectedOption4 = getSelectedOption(optionGroup);
+                int selectedOption5 = getSelectedOption(optionGroup);
+                int selectedOption6 = getSelectedOption(optionGroup);
+                int selectedOption7 = getSelectedOption(optionGroup);
+                int selectedOption8 = getSelectedOption(optionGroup);
+                int selectedOption9 = getSelectedOption(optionGroup);
 
-                int score = calculateScore(selectedOption);
 
-                storeScore("OOPS", score);
+                // Repeat for other questions...
 
-                JOptionPane.showMessageDialog(frame, "Your score: " + score + "/9");
+                int scoreForQuestion1 = calculateScore(selectedOption1, 0);
+                int scoreForQuestion2 = calculateScore(selectedOption2, 1);
+                int scoreForQuestion3 = calculateScore(selectedOption3, 2);
+                int scoreForQuestion4 = calculateScore(selectedOption4, 3);
+                int scoreForQuestion5 = calculateScore(selectedOption5, 4);
+                int scoreForQuestion6 = calculateScore(selectedOption6, 5);
+                int scoreForQuestion7 = calculateScore(selectedOption7, 6);
+                int scoreForQuestion8 = calculateScore(selectedOption8, 7);
+                int scoreForQuestion9 = calculateScore(selectedOption9, 8);
+
+                // Repeat for other questions...
+
+                // Calculate total score
+                int totalScore = scoreForQuestion1 + scoreForQuestion2 +scoreForQuestion3+scoreForQuestion4+scoreForQuestion5+scoreForQuestion6+scoreForQuestion7+scoreForQuestion8+scoreForQuestion9; /* Add scores for other questions */;
+
+                // Store total score or display it as needed
+                storeScore("OOPS", totalScore);
+
+                JOptionPane.showMessageDialog(frame, "Your total score: " + totalScore + "/9");
 
                 frame.dispose();
             }
         });
+
+
 
         panel.add(finishButton, BorderLayout.SOUTH);
         frame.add(panel);
@@ -73,22 +108,38 @@ public class OOPSQuestion9 {
         frame.setVisible(true);
     }
 
-    private static int getSelectedOption() {
-        for (int i = 0; i < CORRECT_OPTIONS.length; i++) {
-            if (optionGroup.getElements().nextElement().isSelected()) {
+    private static int getSelectedOption(ButtonGroup group) {
+        Enumeration<AbstractButton> buttons = group.getElements();
+        int i = 0;
+        while (buttons.hasMoreElements()) {
+            AbstractButton button = buttons.nextElement();
+            if (button.isSelected()) {
                 return i;
             }
+            i++;
         }
-        return -1;
+        return -1; // Return -1 if no option is selected
     }
 
-    private static int calculateScore(int selectedOption) {
+
+
+
+
+    private static int calculateScore(int selectedOption, int questionNumber) {
         int score = 0;
-        if (selectedOption == CORRECT_OPTIONS[8]) {
+        System.out.println("Selected option for question " + (questionNumber + 1) + ": " + selectedOption);
+        System.out.println("Correct option for question " + (questionNumber + 1) + ": " + CORRECT_OPTIONS[questionNumber]);
+        if (selectedOption == CORRECT_OPTIONS[questionNumber]) {
             score++;
         }
         return score;
     }
+
+
+
+    //int selectedOption = getSelectedOption(); // Get the selected option
+   // int questionNumber = 8; // Assuming question number 9 (indexed from 0)
+    //int score = calculateScore(selectedOption, questionNumber); // Calculate the score
 
     private static void storeScore(String subject, int score) {
         Connection connection = null;
