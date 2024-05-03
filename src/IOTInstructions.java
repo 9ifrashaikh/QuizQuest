@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
 public class IOTInstructions {
     public static void main(String[] args) {
@@ -42,6 +43,16 @@ public class IOTInstructions {
                 "2. Ensure that you understand the concepts thoroughly before attempting the quiz.\n" +
                 "3. Good luck!");
 
+        // Create a button for proceeding to the test
+        JButton proceedButton = new JButton("Proceed to Test");
+        proceedButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Open the IOTQuestion1 frame
+                new IOTQuestion1().createAndShowGUI();
+                iotFrame.dispose(); // Close the instructions window
+            }
+        });
+
         // Add components to the IOT instruction panel
         iotPanel.add(titleLabelIOT, BorderLayout.NORTH);
 
@@ -56,6 +67,9 @@ public class IOTInstructions {
         centerPanelIOT.add(additionalInfoTextAreaIOT);
         iotPanel.add(centerPanelIOT, BorderLayout.CENTER);
 
+        // Add the Proceed to Test button to the IOT instruction panel
+        iotPanel.add(proceedButton, BorderLayout.SOUTH);
+
         // Add the IOT instruction panel to the frame
         iotFrame.add(iotPanel);
 
@@ -66,3 +80,4 @@ public class IOTInstructions {
         iotFrame.setVisible(true);
     }
 }
+

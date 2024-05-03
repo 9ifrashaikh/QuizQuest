@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
 public class DSInstructions {
     public static void main(String[] args) {
@@ -42,6 +43,16 @@ public class DSInstructions {
                 "2. Ensure that you understand the concepts thoroughly before attempting the quiz.\n" +
                 "3. Good luck!");
 
+        // Create a button for proceeding to the test
+        JButton proceedButton = new JButton("Proceed to Test");
+        proceedButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Open the DSQuestion1 frame
+                new DSQuestion1().createAndShowGUI();
+                dsFrame.dispose(); // Close the instructions window
+            }
+        });
+
         // Add components to the DS instruction panel
         dsPanel.add(titleLabelDS, BorderLayout.NORTH);
 
@@ -55,6 +66,9 @@ public class DSInstructions {
         centerPanelDS.add(additionalInfoLabelDS);
         centerPanelDS.add(additionalInfoTextAreaDS);
         dsPanel.add(centerPanelDS, BorderLayout.CENTER);
+
+        // Add the Proceed to Test button to the DS instruction panel
+        dsPanel.add(proceedButton, BorderLayout.SOUTH);
 
         // Add the DS instruction panel to the frame
         dsFrame.add(dsPanel);
