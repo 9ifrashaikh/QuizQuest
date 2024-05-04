@@ -79,10 +79,10 @@ public class LoginPage {
                 // Perform authentication logic (query database)
                 try {
                     // Establish database connection
-                    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/sys", "root", "clover07");
+                    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/sys", "root", "ifra@1234");
 
                     // Prepare SQL statement
-                    String sql = "SELECT * FROM sys.quiz WHERE user_name=? AND passwd=?";
+                    String sql = "SELECT * FROM sys.logins WHERE user_name=? AND passw=?";
                     PreparedStatement pstmt = conn.prepareStatement(sql);
                     pstmt.setString(1, username);
                     pstmt.setString(2, password);
@@ -98,7 +98,7 @@ public class LoginPage {
                         frame.dispose();
 
                         // Open the QuizDashboard
-                        QuizDashboard.main(new String[]{});
+                        QuizDashboard.main(new String[]{username});
                     } else {
                         JOptionPane.showMessageDialog(frame, "Invalid credentials");
                     }
