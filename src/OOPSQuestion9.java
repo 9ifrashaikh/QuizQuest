@@ -2,17 +2,19 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
-import java.util.Date;
+import java.util.Enumeration;
 
 public class OOPSQuestion9 {
-    private static final int[] CORRECT_OPTIONS = {0, 2, 3, 2, 2, 3, 0, 0, 0};
+    private static final int[] CORRECT_OPTIONS = {0, 2, 3, 0, 0, 3, 0, 0, 0};
     private static JFrame frame;
     private static JPanel panel;
     private static ButtonGroup optionGroup;
+    private static String username;
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
+                username = JOptionPane.showInputDialog("Enter your username:");
                 createAndShowGUI();
             }
         });
@@ -55,15 +57,22 @@ public class OOPSQuestion9 {
         JButton finishButton = new JButton("Finish");
         finishButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int selectedOption = getSelectedOption();
-
-                int score = calculateScore(selectedOption);
-
-                storeScore("OOPS", score);
-
-                JOptionPane.showMessageDialog(frame, "Your score: " + score + "/9");
-
-                frame.dispose();
+                int totalScore = 0;
+                for (int i = 0; i < CORRECT_OPTIONS.length; i++) {
+                    int selectedOption = getSelectedOption(optionGroup);
+                    totalScore += calculateScore(selectedOption, i);
+                }
+                storeScore("OOPS", totalScore, username);
+                JOptionPane.showMessageDialog(frame, "Your total score: " + totalScore + "/9");
+                JButton showCorrectOptionsButton = new JButton("Show Correct Options");
+                showCorrectOptionsButton.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        displayCorrectOptions();
+                    }
+                });
+                panel.remove(finishButton);
+                panel.add(showCorrectOptionsButton, BorderLayout.SOUTH);
+                frame.revalidate();
             }
         });
 
@@ -73,31 +82,106 @@ public class OOPSQuestion9 {
         frame.setVisible(true);
     }
 
-    private static int getSelectedOption() {
-        for (int i = 0; i < CORRECT_OPTIONS.length; i++) {
-            if (optionGroup.getElements().nextElement().isSelected()) {
+    private static int getSelectedOption(ButtonGroup group) {
+        Enumeration<AbstractButton> buttons = group.getElements();
+        int i = 0;
+        while (buttons.hasMoreElements()) {
+            AbstractButton button = buttons.nextElement();
+            if (button.isSelected()) {
                 return i;
             }
+            i++;
         }
-        return -1;
+        return -1; // Return -1 if no option is selected
     }
 
-    private static int calculateScore(int selectedOption) {
+    private static int calculateScore(int selectedOption, int questionNumber) {
         int score = 0;
-        if (selectedOption == CORRECT_OPTIONS[8]) {
-            score++;
+        if (selectedOption == CORRECT_OPTIONS[questionNumber]) {
+            score = 1;
         }
         return score;
     }
 
-    private static void storeScore(String subject, int score) {
+    private static void displayCorrectOptions() {
+        StringBuilder correctOptions = new StringBuilder("<html><body>");
+        for (int i = 0; i < CORRECT_OPTIONS.length; i++) {
+            char correctOption = (char) ('A' + CORRECT_OPTIONS[i]);
+            correctOptions.append(i + 1).append(". ");
+            switch (i) {
+                case 0:
+                    correctOptions.append("What is the main objective of OOP? ");
+                    break;
+                case 1:
+                    correctOptions.append("What is inheritance in OOP? ");
+                    break;
+                case 2:
+                    correctOptions.append("What is polymorphism in OOP? ");
+                    break;
+                case 3:
+                    correctOptions.append("What is abstraction in OOP? ");
+                    break;
+                case 4:
+                    correctOptions.append("What is a constructor in Java? ");
+                    break;
+                case 5:
+                    correctOptions.append("What is a static method in Java? ");
+                    break;
+                case 6:
+                    correctOptions.append("What is an interface in Java? ");
+                    break;
+                case 7:
+                    correctOptions.append("What is a package in Java? ");
+                    break;
+                case 8:
+                    correctOptions.append("What is the main objective of OOP? ");
+                    break;
+            }
+            correctOptions.append("<br>&nbsp;&nbsp;&nbsp;Answer: ").append(correctOption).append(". ");
+            switch (i) {
+                case 0:
+                    correctOptions.append("To simplify complex systems by modeling them as objects");
+                    break;
+                case 1:
+                    correctOptions.append("The ability to create new classes from existing classes");
+                    break;
+                case 2:
+                    correctOptions.append("The ability of an object to take on many forms");
+                    break;
+                case 3:
+                    correctOptions.append("The ability to hide certain methods from other classes");
+                    break;
+                case 4:
+                    correctOptions.append("A method that is automatically called when an object is created");
+                    break;
+                case 5:
+                    correctOptions.append("A method that belongs to the class rather than any specific instance");
+                    break;
+                case 6:
+                    correctOptions.append("A collection of abstract methods and constants");
+                    break;
+                case 7:
+                    correctOptions.append("A folder used to organize classes and interfaces");
+                    break;
+                case 8:
+                    correctOptions.append("To simplify complex systems by modeling them as objects");
+                    break;
+            }
+            correctOptions.append("<br><br>");
+        }
+        correctOptions.append("</body></html>");
+
+        JOptionPane.showMessageDialog(frame, correctOptions.toString(), "Correct Options", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private static void storeScore(String subject, int score, String username) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/sys", "root", "ifra@1234");
             String insertQuery = "INSERT INTO scores (user_name, subject, score, test_date) VALUES (?, ?, ?, ?)";
             preparedStatement = connection.prepareStatement(insertQuery);
-            preparedStatement.setString(1, "ifras");
+            preparedStatement.setString(1, username);
             preparedStatement.setString(2, subject);
             preparedStatement.setInt(3, score);
             preparedStatement.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
