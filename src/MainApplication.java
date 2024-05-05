@@ -5,7 +5,7 @@ import java.awt.event.*;
 public class MainApplication {
     public static void main(String[] args) {
         // Create and configure the main frame
-        JFrame frame = new JFrame("Welcome to Your Application");
+        JFrame frame = new JFrame("Welcome to QUIZ Application");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 600);
 
@@ -15,7 +15,7 @@ public class MainApplication {
         landingPanel.setBackground(new Color(240, 240, 240)); // Set background color
 
         // Create a title label with custom font and alignment
-        JLabel titleLabel = new JLabel("Welcome to Your Application");
+        JLabel titleLabel = new JLabel("Welcome to QUIZ Application");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 32));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -78,3 +78,5 @@ public class MainApplication {
         return button;
     }
 }
+
+

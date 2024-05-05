@@ -3,6 +3,11 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class OOPSQuestion3 {
+    private static final int TIMER_DURATION = 60; // 60 seconds
+    private static int timeLeft = TIMER_DURATION;
+    private static JLabel timerLabel;
+    private static Timer timer;
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(OOPSQuestion3::createAndShowGUI);
     }
@@ -19,7 +24,7 @@ public class OOPSQuestion3 {
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         // Create question label
-        JLabel questionLabel = new JLabel("What is polymorphism in OOP?");
+        JLabel questionLabel = new JLabel("Which of the following statements is TRUE about exception handling in Java within the context of OOP?");
         questionLabel.setFont(new Font("Arial", Font.BOLD, 16));
         panel.add(questionLabel, BorderLayout.NORTH);
 
@@ -28,10 +33,10 @@ public class OOPSQuestion3 {
         optionsPanel.setLayout(new GridLayout(4, 1));
 
         // Create option radio buttons
-        JRadioButton option1 = new JRadioButton("A. The ability to create new classes from existing classes");
-        JRadioButton option2 = new JRadioButton("B. The ability to access methods of one class from another class");
-        JRadioButton option3 = new JRadioButton("C. The ability to override methods of a superclass");
-        JRadioButton option4 = new JRadioButton("D. The ability of a single method to perform different tasks based on the object that invokes it");
+        JRadioButton option1 = new JRadioButton("a) A try block can only catch one specific type of exception.");
+        JRadioButton option2 = new JRadioButton("b) A finally block is mandatory for every try-catch block.");
+        JRadioButton option3 = new JRadioButton("c) Catch blocks are used to define how to handle unexpected events during program execution. (CORRECT)");
+        JRadioButton option4 = new JRadioButton("d) Exception handling improves code readability but doesn't affect program functionality.");
 
         // Group the radio buttons
         ButtonGroup group = new ButtonGroup();
@@ -48,6 +53,17 @@ public class OOPSQuestion3 {
 
         panel.add(optionsPanel, BorderLayout.CENTER);
 
+        // Create timer label
+        timerLabel = new JLabel("Time left: " + format(TIMER_DURATION / 60) + ":" + format(TIMER_DURATION % 60));
+        timerLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+
+        // Create panel for timer
+        JPanel timerPanel = new JPanel();
+        timerPanel.add(timerLabel);
+
+        // Add timer panel to the main panel
+        panel.add(timerPanel, BorderLayout.WEST);
+
         // Create "Next" button
         JButton nextButton = new JButton("Next");
         nextButton.addActionListener(new ActionListener() {
@@ -57,11 +73,37 @@ public class OOPSQuestion3 {
                 frame.dispose();
                 // Call the method to display Question 4
                 OOPSQuestion4.main(new String[]{});
+                // Stop the timer
+                timer.stop();
             }
         });
 
-        // Add "Next" button to the panel
-        panel.add(nextButton, BorderLayout.SOUTH);
+        // Create panel for buttons
+        JPanel buttonPanel = new JPanel(new BorderLayout());
+        buttonPanel.add(nextButton, BorderLayout.EAST);
+
+        // Add button panel to the main panel
+        panel.add(buttonPanel, BorderLayout.SOUTH);
+
+        // Create and start the timer
+        timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                timeLeft--;
+                if (timeLeft <= 0) {
+                    timer.stop();
+                    JOptionPane.showMessageDialog(frame, "Time's up!");
+                    frame.dispose();
+                    // Redirect to the end of the quiz or any other action
+                    // You can replace this with code to proceed to the next question or close the application
+                    // For example, OOPSQuestion4.main(new String[]{});
+                    // or System.exit(0);
+                } else {
+                    timerLabel.setText("Time left: " + format(timeLeft / 60) + ":" + format(timeLeft % 60));
+                }
+            }
+        });
+        timer.start();
 
         // Add panel to the frame
         frame.add(panel);
@@ -71,5 +113,14 @@ public class OOPSQuestion3 {
 
         // Make the frame visible
         frame.setVisible(true);
+    }
+
+    // Format time as "MM:SS"
+    private static String format(int i) {
+        String result = String.valueOf(i);
+        if (result.length() == 1) {
+            result = "0" + result;
+        }
+        return result;
     }
 }
