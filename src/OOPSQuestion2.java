@@ -3,6 +3,11 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class OOPSQuestion2 {
+    private static final int TIMER_DURATION = 60; // 60 seconds
+    private static int timeLeft = TIMER_DURATION;
+    private static JLabel timerLabel;
+    private static Timer timer;
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(OOPSQuestion2::createAndShowGUI);
     }
@@ -48,6 +53,17 @@ public class OOPSQuestion2 {
 
         panel.add(optionsPanel, BorderLayout.CENTER);
 
+        // Create timer label
+        timerLabel = new JLabel("Time left: " + format(TIMER_DURATION / 60) + ":" + format(TIMER_DURATION % 60));
+        timerLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+
+        // Create panel for timer
+        JPanel timerPanel = new JPanel();
+        timerPanel.add(timerLabel);
+
+        // Add timer panel to the main panel
+        panel.add(timerPanel, BorderLayout.WEST);
+
         // Create "Next" button
         JButton nextButton = new JButton("Next");
         nextButton.addActionListener(new ActionListener() {
@@ -57,11 +73,35 @@ public class OOPSQuestion2 {
                 frame.dispose();
                 // Call the method to display Question 3
                 OOPSQuestion3.createAndShowGUI();
+                // Stop the timer
+                timer.stop();
             }
         });
 
-        // Add "Next" button to the panel
-        panel.add(nextButton, BorderLayout.SOUTH);
+        // Create panel for buttons
+        JPanel buttonPanel = new JPanel(new BorderLayout());
+        buttonPanel.add(nextButton, BorderLayout.EAST);
+
+        // Add button panel to the main panel
+        panel.add(buttonPanel, BorderLayout.SOUTH);
+
+        // Create and start the timer
+        timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                timeLeft--;
+                if (timeLeft <= 0) {
+                    timer.stop();
+                    JOptionPane.showMessageDialog(frame, "Time's up!");
+                    frame.dispose();
+                    // Call the method to display Question 3 when time's up
+                    OOPSQuestion3.createAndShowGUI();
+                } else {
+                    timerLabel.setText("Time left: " + format(timeLeft / 60) + ":" + format(timeLeft % 60));
+                }
+            }
+        });
+        timer.start();
 
         // Add panel to the frame
         frame.add(panel);
@@ -71,5 +111,14 @@ public class OOPSQuestion2 {
 
         // Make the frame visible
         frame.setVisible(true);
+    }
+
+    // Format time as "MM:SS"
+    private static String format(int i) {
+        String result = String.valueOf(i);
+        if (result.length() == 1) {
+            result = "0" + result;
+        }
+        return result;
     }
 }
